@@ -172,7 +172,7 @@ _Obs: A senha precisa ter no mínimo 8 digitos, letras maiúsculas, minúsculas,
 
 - Criar um classe basica
 
-  _[Exemplo]()_
+  _[Exemplo](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Models/Evento.cs)_
 
         namespace dot_net_api.Models
         {
@@ -186,7 +186,7 @@ _Obs: A senha precisa ter no mínimo 8 digitos, letras maiúsculas, minúsculas,
 
 * Configuar o db context para gerenciar a entidade
 
-  _Na classe [ApplicationDbContext]() adicionar atributo público DbSet<T>_
+  _Na classe [ApplicationDbContext](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Context/ApplicationDbContext.cs) adicionar atributo público DbSet<T>_
 
       public DbSet<Evento> Eventos { get; set; }
 
