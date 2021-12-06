@@ -1,6 +1,5 @@
-using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-
+using dot_net_api.Models;
 
 namespace dot_net_api.Context
 {
@@ -9,9 +8,6 @@ namespace dot_net_api.Context
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
         { }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(As);
-        }
+        public DbSet<Evento> Eventos { get; set; }
     }
 }

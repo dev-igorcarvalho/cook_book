@@ -8,12 +8,14 @@
 - [Instalação das dependências do Entity Framework](#instalação-das-dependências-do-entity-framework)
 - [Criação e configuração do DB context](#criação-e-configuração-do-db-context)
 - [Instalação das dependências do Identity Framework](#instalação-das-dependências-do-identity-framework)
-- Instalação das dependências do JWT
-- Criação e configuração do Identity
-- Criação dos modelos de entidade relacional
-  - Relacionamento de entidades 1-1
-  - Relacionamento de entidades 1-N
-  - Relacionamento de entidades N-N
+- [Instalação das dependências do JWT](#instalação-das-dependências-do-jwt)
+- [Criação e configuração do Identity](#criação-e-configuração-do-identity)
+- [Criação dos modelos de entidade relacional](#criação-dos-modelos-de-entidade-relacional)
+  - Entidade sem relacionamento
+  * Relacionamento de entidades 1-1
+  * Relacionamento de entidades 1-N
+  * Relacionamento de entidades N-N
+  * Entidade não gerenciada pelo db context
 - Adicionando validação dos campos das entidades
 - Editar padroes especificos das migrantions no bdContex modelBuilder
 - Criação das migrations
@@ -165,3 +167,33 @@ _Obs: A senha precisa ter no mínimo 8 digitos, letras maiúsculas, minúsculas,
 ### Criação e configuração do Identity
 
 ### Criação dos modelos de entidade relacional
+
+#### Entidade sem relacionamento
+
+- Criar um classe basica
+
+  _[Exemplo]()_
+
+        namespace dot_net_api.Models
+        {
+            public class Evento
+            {
+                public string Nome { get; set; }
+                public string Local { get; set; }
+                public int QuantidadeParticipantes { get; set; }
+            }
+        }
+
+* Configuar o db context para gerenciar a entidade
+
+  _Na classe [ApplicationDbContext]() adicionar atributo público DbSet<T>_
+
+      public DbSet<Evento> Eventos { get; set; }
+
+#### Relacionamento de entidades 1-1
+
+#### Relacionamento de entidades 1-N
+
+#### Relacionamento de entidades N-N
+
+#### Entidade não gerenciada pelo db context
