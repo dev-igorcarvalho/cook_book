@@ -38,6 +38,9 @@
 ---
     
 ### Instalação dos plugins do VS code:
+#### Pré-Requisitos:
+* Ter o VS Code instalado.
+
 _Com o VS code aberto aperte as teclas CTRL+P e rode individualente os comandos abaixo:_
 
     ext install ms-dotnettools.csharp
@@ -91,6 +94,12 @@ _Obs: A senha precisa ter no mínimo 8 digitos, letras maiúsculas, minúsculas,
         code .
 
 ### Instalação das dependências do Entity Framework
+* No terminal, na mesma pasta destino do projeto, rodar o comando:
+
+      dotnet add package Microsoft.EntityFrameworkCore -v 3.1
+      dotnet add package Microsoft.EntityFrameworkCore.tools -v 3.1
+      dotnet add package Microsoft.EntityFrameworkCore.SqlServer -v 3.1
+
 ### Criação e configuração do DB context
 ### Instalação das dependências do Identity Framework
 ### Instalação das dependências do JWT
