@@ -11,11 +11,11 @@
 - [Instalação das dependências do JWT](#instalação-das-dependências-do-jwt)
 - [Criação e configuração do Identity](#criação-e-configuração-do-identity)
 - [Criação dos modelos de entidade relacional](#criação-dos-modelos-de-entidade-relacional)
-  - Entidade sem relacionamento
-  * Relacionamento de entidades 1-1
-  * Relacionamento de entidades 1-N
-  * Relacionamento de entidades N-N
-  * Entidade não gerenciada pelo db context
+  - [Entidade sem relacionamento](#entidade-sem-relacionamento)
+  * [Entidade não gerenciada pelo db context](#entidade-não-gerenciada-pelo-db-context)
+  * [Relacionamento de entidades 1-1](#relacionamento-de-entidades-1-1)
+  * [Relacionamento de entidades 1-N](#relacionamento-de-entidades-1-N)
+  * [Relacionamento de entidades N-N](#relacionamento-de-entidades-N-N)
 - Adicionando validação dos campos das entidades
 - Editar padroes especificos das migrantions no bdContex modelBuilder
 - Criação das migrations
@@ -39,9 +39,9 @@
 
 ---
 
-### Instalação dos plugins do VS code:
+## Instalação dos plugins do VS code:
 
-#### Pré-Requisitos:
+### Pré-Requisitos:
 
 - Ter o VS Code instalado.
 
@@ -55,13 +55,13 @@ _Com o VS code aberto aperte as teclas CTRL+P e rode individualente os comandos 
     ext install Fudge.auto-using
     ext install ms-dotnettools.vscode-dotnet-pack
 
-### Preparação do banco de dados em container:
+## Preparação do banco de dados em container:
 
-#### Pré-Requisitos:
+### Pré-Requisitos:
 
 - Docker e Docker-compose
 
-#### Instruções:
+### Instruções:
 
 - Criar um arquivo chamado < docker-compose.yml > de accordo com o modelo abaixo:
 
@@ -92,9 +92,9 @@ _Obs: A senha precisa ter no mínimo 8 digitos, letras maiúsculas, minúsculas,
   - _Usuário: SA_
   - \_Senha: utilizar a senha do arquivo
 
-### Criação a aplicação com o CLI
+## Criação a aplicação com o CLI
 
-#### Pré-Requisitos:
+### Pré-Requisitos:
 
 - DotNet SDK
 - No terminal, na mesma pasta destino do projeto, rodar os comandos:
@@ -105,7 +105,7 @@ _Obs: A senha precisa ter no mínimo 8 digitos, letras maiúsculas, minúsculas,
 - Após a crição do projeto, abrir o mesmo no VS code com o comando:
   code .
 
-### Instalação das dependências do Entity Framework
+## Instalação das dependências do Entity Framework
 
 - No terminal, na mesma pasta destino do projeto, rodar o comando:
 
@@ -113,7 +113,7 @@ _Obs: A senha precisa ter no mínimo 8 digitos, letras maiúsculas, minúsculas,
       dotnet add package Microsoft.EntityFrameworkCore.tools -v 3.1.21
       dotnet add package Microsoft.EntityFrameworkCore.SqlServer -v 3.1.21
 
-### Criação e configuração do DB context
+## Criação e configuração do DB context
 
 - Criar a classe de contexto conforme o código a seguir:
 
@@ -160,15 +160,15 @@ _Obs: A senha precisa ter no mínimo 8 digitos, letras maiúsculas, minúsculas,
       "DefaultConnection": "Server=url_do_bancoo;DataBase=nome_da_db:Uid=nome_usuario;Pwd=senha_usuario"
       },
 
-### Instalação das dependências do Identity Framework
+## Instalação das dependências do Identity Framework
 
-### Instalação das dependências do JWT
+## Instalação das dependências do JWT
 
-### Criação e configuração do Identity
+## Criação e configuração do Identity
 
-### Criação dos modelos de entidade relacional
+## Criação dos modelos de entidade relacional
 
-#### Entidade sem relacionamento
+### Entidade sem relacionamento
 
 - Criar um classe basica
 
@@ -190,10 +190,17 @@ _Obs: A senha precisa ter no mínimo 8 digitos, letras maiúsculas, minúsculas,
 
       public DbSet<Evento> Eventos { get; set; }
 
-#### Relacionamento de entidades 1-1
+### Entidade não gerenciada pelo Db Context
 
-#### Relacionamento de entidades 1-N
+_Uma entidade nao gerenciada pelo Db Context é uma classe de entidade que nao foi acrescentada no atributo público DbSet<T> da classe [ApplicationDbContext](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Context/ApplicationDbContext.cs)_
 
-#### Relacionamento de entidades N-N
+_É um recurso que pode ser usado quando temos alguma entidade que depende de outra para ser gerenciada e nao deve ser acessada ou modificada diretamente._
 
-#### Entidade não gerenciada pelo db context
+_Como [exemplo](#relacionamento-de-entidades-1-1) podemos citar uma relação entre Usario e Endereço, onde por um questão de design não desejamos que o endereço seja manipulado independentemente._
+_Obs: Não existe regra definida para exemplo a cima, é uma questa de escolha que varia de projeto para projeto de acordo com suas necessidades._
+
+### Relacionamento de entidades 1-1
+
+### Relacionamento de entidades 1-N
+
+### Relacionamento de entidades N-N
