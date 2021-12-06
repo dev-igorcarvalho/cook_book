@@ -178,6 +178,7 @@ _Obs: A senha precisa ter no mínimo 8 digitos, letras maiúsculas, minúsculas,
         {
             public class Evento
             {
+                public string Id { get; set; }
                 public string Nome { get; set; }
                 public string Local { get; set; }
                 public int QuantidadeParticipantes { get; set; }
