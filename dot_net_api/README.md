@@ -23,7 +23,7 @@
 - [Criação de Seeder usando migrations para addicionar conteúdo ao banco](#criação-de-Seeder-usando-migrations-para-addicionar-conteúdo-ao-banco)
 - [Criação exception handler](#criação-exception-handler)
 - [Criação http filter](#criação-http-filter)
-- [Criação do padrao repositry para os acessos ao banco](#criação-do-padrao-repositry-para-os-acessos-ao-banco)
+- [Criação do padrao repository para os acessos ao banco](#criação-do-padrao-repository-para-os-acessos-ao-banco)
 - Criação dos mappers de entidades pra Dtos
 - Criação endpoints de autenticação
 - Criação de um controller com endpoints protegiddos
