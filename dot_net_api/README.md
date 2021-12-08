@@ -675,7 +675,7 @@ _Existem diversas opçoes de modificações possiveis, já demonstramos algumas 
 
     _Na classe [Startup](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Startup.cs), acrescentar no corpo do método **public void ConfigureServices(IServiceCollection services)** a linha de código abaixo _
 
-          services.AddScoped<SimpleFilter>();
+        services.AddScoped<SimpleFilter>();
 
   - Utilização
 
@@ -783,7 +783,7 @@ _Existem diversas opçoes de modificações possiveis, já demonstramos algumas 
 
   _Na classe [Startup](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Startup.cs), acrescentar no corpo do método **public void ConfigureServices(IServiceCollection services)** a linha de código abaixo _
 
-          services.AddScoped<EventoRepository>();
+      services.AddScoped<EventoRepository>();
 
 ### Criação dos mappers de entidades pra Dtos
 
