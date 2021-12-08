@@ -214,7 +214,7 @@ _Obs: Não existe regra definida para exemplo a cima, é uma questão de escolha
 
 _Neste exemplo vamos usar um relacionamento 1-1_
 
-- Criar a entidade Pai (gerenciada pelo db context)
+- [Criar a entidade Pai (gerenciada pelo db context)](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Models/Cliente.cs)
 
       namespace dot_net_api.Models
       {
@@ -232,7 +232,7 @@ _Neste exemplo vamos usar um relacionamento 1-1_
 
       public DbSet<Cliente> Clientes { get; set; }
 
-- Criar a entidade Filha (não gerenciada pelo db context)
+- [Criar a entidade Filha (não gerenciada pelo db context)](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Models/Endereco.cs)
 
   _É possível observar que essa entidade não tem um id_
 
@@ -292,7 +292,7 @@ _Relações um para um têm uma propriedade de navegação de referência em amb
 
 _O EF escolherá uma das entidades como dependente, com base em sua capacidade de detectar uma propriedade de chave estrangeira. se a entidade incorreta for escolhida como dependente, você poderá usar a API Fluent para corrigir isso._
 
-- Entidade principal:
+- [Entidade principal:](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Models/Pessoa.cs)
 
       namespace dot_net_api.Models
       {
@@ -305,7 +305,7 @@ _O EF escolherá uma das entidades como dependente, com base em sua capacidade d
           }
       }
 
-- Entidade dependente:
+- [Entidade dependente:](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Models/CarteiraNacionalHabilitacao.cs)
 
       namespace dot_net_api.Models
       {
@@ -321,7 +321,7 @@ _O EF escolherá uma das entidades como dependente, com base em sua capacidade d
 
 ### Relacionamento de entidades 1-N
 
-- Entidade principal:
+- [Entidade principal:](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Models/Categoria.cs)
 
       using System.Collections.ObjectModel;
       using System.Collections.Generic;
@@ -342,7 +342,7 @@ _O EF escolherá uma das entidades como dependente, com base em sua capacidade d
           }
       }
 
-- Entidade dependente:
+- [Entidade dependente:](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Models/Produto.cs)
 
       namespace dot_net_api.Models
       {
@@ -360,7 +360,7 @@ _O EF escolherá uma das entidades como dependente, com base em sua capacidade d
 
 _Na versão usada do EF usada só é possivel fazer o relacionamento N-N com uma entidade de junção._
 
-- Entidade A:
+- [Entidade A:](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Models/Carro.cs)
 
       using System.Collections.Generic;
       using System.Collections.ObjectModel;
@@ -380,7 +380,7 @@ _Na versão usada do EF usada só é possivel fazer o relacionamento N-N com uma
           }
       }
 
-- Entidade B:
+- [Entidade B:](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Models/Motorista.cs)
 
       using System.Collections.Generic;
       using System.Collections.ObjectModel;
@@ -399,7 +399,7 @@ _Na versão usada do EF usada só é possivel fazer o relacionamento N-N com uma
           }
       }
 
-* Entidade de junção:
+* [Entidade de junção:](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Models/MotoristaCarro.cs)
 
       namespace dot_net_api.Models
       {
