@@ -685,9 +685,107 @@ _Existem diversas opçoes de modificações possiveis, já demonstramos algumas 
 
 ### Criação do padrao repository para os acessos ao banco
 
-### Criação dos mappers de entidades pra Dtos
+- Criar uma interface generica para controlar os métodos básicos
 
-### Criação e configuração do identity framework pra trabalhar com tokens
+      using System.Linq.Expressions;
+      using System.Linq;
+      using System;
+
+      namespace dot_net_api.Repositories
+      {
+          public interface IRepository<T>
+          {
+              IQueryable<T> Get();
+              T GetById(Expression<Func<T, bool>> predicate);
+              void Add(T entity);
+              void Update(T entity);
+              void Delete(T entity);
+
+
+          }
+      }
+
+- Criar um classe generica que implementa a interface
+
+      using System;
+      using System.Linq;
+      using System.Linq.Expressions;
+      using dot_net_api.Context;
+      using Microsoft.EntityFrameworkCore;
+
+      namespace dot_net_api.Repositories
+      {
+          public class Repository<T> : IRepository<T> where T : class
+          {
+              protected ApplicationDbContext _context;
+              public Repository(ApplicationDbContext ctx)
+              {
+                  _context = ctx;
+              }
+              public void Add(T entity)
+              {
+                  _context.Set<T>().Add(entity);
+                  _context.SaveChanges();
+              }
+
+              public void Delete(T entity)
+              {
+                  _context.Set<T>().Remove(entity);
+                  _context.SaveChanges();
+              }
+
+              public IQueryable<T> Get()
+              {
+                  return _context.Set<T>().AsNoTracking();
+              }
+
+              public T GetById(Expression<Func<T, bool>> predicate)
+              {
+                  return _context.Set<T>().SingleOrDefault(predicate);
+              }
+
+              public void Update(T entity)
+              {
+                  _context.Entry(entity).State = EntityState.Modified;
+                  _context.Set<T>().Update(entity);
+                  _context.SaveChanges();
+              }
+          }
+      }
+
+- Criar uma interface especificapara um entidade
+
+      using dot_net_api.Models;
+      namespace dot_net_api.Repositories
+      {
+          public interface IEventoRepository : IRepository<Evento>
+          {
+
+          }
+      }
+
+- Criar uma classe de implementação de Repository da entidade escolhida
+
+      using dot_net_api.Context;
+      using dot_net_api.Models;
+
+      namespace dot_net_api.Repositories
+      {
+          public class EventoRepository : Repository<Evento>, IEventoRepository
+          {
+              public EventoRepository(ApplicationDbContext ctx) : base(ctx)
+              {
+              }
+          }
+      }
+
+  - Cadastrar a classe na injeção de dependência
+
+    _Na classe [Startup](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Startup.cs), acrescentar no corpo do método **public void ConfigureServices(IServiceCollection services)** a linha de código abaixo _
+
+          services.AddScoped<EventoRepository>();
+
+### Criação dos mappers de entidades pra Dtos
 
 ### Criação endpoints de autenticação
 

@@ -14,6 +14,7 @@ using dot_net_api.Context;
 using dot_net_api.Handlers;
 using Microsoft.EntityFrameworkCore;
 using dot_net_api.Http_filters;
+using dot_net_api.Repositories;
 
 namespace dot_net_api
 {
@@ -29,7 +30,7 @@ namespace dot_net_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // services.AddScoped<SimpleFilter>();
+            services.AddScoped<EventoRepository>(); // registra a classe no injetor de dependencias
             services
                 .AddDbContext<ApplicationDbContext>
                 (
