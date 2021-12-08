@@ -685,7 +685,7 @@ _Existem diversas opçoes de modificações possiveis, já demonstramos algumas 
 
 ### Criação do padrao repository para os acessos ao banco
 
-- Criar uma interface generica para controlar os métodos básicos
+- Criar uma [interface]https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Repositories/IRepository.cs generica para controlar os métodos básicos
 
       using System.Linq.Expressions;
       using System.Linq;
@@ -705,7 +705,7 @@ _Existem diversas opçoes de modificações possiveis, já demonstramos algumas 
           }
       }
 
-- Criar um classe generica que implementa a interface
+- Criar um [classe](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Repositories/Repository.cs) generica que implementa a interface
 
       using System;
       using System.Linq;
@@ -753,7 +753,7 @@ _Existem diversas opçoes de modificações possiveis, já demonstramos algumas 
           }
       }
 
-- Criar uma interface especificapara um entidade
+- Criar uma [interface](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Repositories/IEventoRepository.cs) especifica para um entidade
 
       using dot_net_api.Models;
       namespace dot_net_api.Repositories
@@ -764,7 +764,7 @@ _Existem diversas opçoes de modificações possiveis, já demonstramos algumas 
           }
       }
 
-- Criar uma classe de implementação de Repository da entidade escolhida
+- Criar uma [classe](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Repositories/EventoRepository.cs) de implementação de Repository da entidade escolhida
 
       using dot_net_api.Context;
       using dot_net_api.Models;
@@ -779,9 +779,9 @@ _Existem diversas opçoes de modificações possiveis, já demonstramos algumas 
           }
       }
 
-  - Cadastrar a classe na injeção de dependência
+- Cadastrar a classe na injeção de dependência
 
-    _Na classe [Startup](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Startup.cs), acrescentar no corpo do método **public void ConfigureServices(IServiceCollection services)** a linha de código abaixo _
+  _Na classe [Startup](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Startup.cs), acrescentar no corpo do método **public void ConfigureServices(IServiceCollection services)** a linha de código abaixo _
 
           services.AddScoped<EventoRepository>();
 
