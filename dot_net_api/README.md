@@ -17,10 +17,10 @@
   * [Relacionamento de entidades 1-1](#relacionamento-de-entidades-1-1)
   * [Relacionamento de entidades 1-N](#relacionamento-de-entidades-1-N)
   * [Relacionamento de entidades N-N](#relacionamento-de-entidades-N-N)
-- Adicionando validação dos campos das entidades
-- Editar padroes especificos das migrantions no bdContex modelBuilder
-- Criação das migrations
-- Criação seed migrations para addicionar conteúdo ao banco
+- [Anotações de entidades](#anotações-de-entidades)
+- [Editar padroes especificos das migrantions no bdContex modelBuilder](#editar-padroes-especificos-das-migrantions-no-bdContex-modelBuilder)
+- [Criação das migrations](#criação-das-migrations)Criação das migrations
+- [Criação de Seeder usando migrations para addicionar conteúdo ao banco](#criação-de-Seeder-usando-migrations-para-addicionar-conteúdo-ao-banco)
 - Criação exception handler
 - Criação http interceptor
 - Criação do padrao repositry para os acessos ao banco
@@ -563,7 +563,34 @@ _Existem diversas opçoes de modificações possiveis, já demonstramos algumas 
 
       dotnet ef database update
 
-### Criação seed migrations para addicionar conteúdo ao banco
+### Criação de Seeder usando migrations para addicionar conteúdo ao banco
+
+- Criar uma nova migration
+
+      dotnet ef migrations add nome_da_migration
+
+- Editar o código da migration criada para rodar SQLs no banco de dados
+
+      using Microsoft.EntityFrameworkCore.Migrations;
+      namespace dot_net_api.Migrations
+      {
+          public partial class evento_seeder : Migration
+          {
+              protected override void Up(MigrationBuilder migrationBuilder)
+              {
+                  migrationBuilder
+                  .Sql(@"INSERT INTO Eventos
+                          (Id, Nome, Local, QuantidadeParticipantes)
+                      VALUES
+                          (1,'Carnaval','Rj',500);");
+              }
+
+              protected override void Down(MigrationBuilder migrationBuilder)
+              {
+                  migrationBuilder.Sql("DELETE FROM Eventos");
+              }
+          }
+      }
 
 ### Criação exception handler
 
