@@ -198,6 +198,8 @@ _Para mais detalhes verificar a [documentação](https://docs.microsoft.com/pt-b
 
 ### Entidade com chave primaria composta
 
+_Para criar uma chave primária composta é necessario configurar suas caracteristicas no DbContext de acordo com o [exemplo](#configurando-a-chave-composta-da-entidade-de-junção)_
+
 ### Entidade não gerenciada pelo Db Context
 
 _Uma entidade nao gerenciada pelo Db Context é uma classe de entidade que nao foi acrescentada no atributo público DbSet<T> da classe [ApplicationDbContext](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Context/ApplicationDbContext.cs)_
@@ -249,7 +251,7 @@ _Neste exemplo vamos usar um relacionamento 1-1_
 
   _Na classe [ApplicationDbContext](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Context/ApplicationDbContext.cs) sobrescrever o methodo OnModelCreating(ModelBuilder modelBuilder) para configurar detalhes da classe Endereco_
 
-      protected override void (modelBuilder){}
+      protected override void OnModelCreating(modelBuilder){}
 
   _Incluir um nome para a tabela da classe._
 
@@ -289,104 +291,174 @@ _Relações um para um têm uma propriedade de navegação de referência em amb
 
 _O EF escolherá uma das entidades como dependente, com base em sua capacidade de detectar uma propriedade de chave estrangeira. se a entidade incorreta for escolhida como dependente, você poderá usar a API Fluent para corrigir isso._
 
-_Entidade principal:_
+- Entidade principal:
 
-    namespace dot_net_api.Models
-    {
-        public class Pessoa
-        {
-            public int Id { get; set; }
-            public string Nome { get; set; }
-            public CarteiraNacionalHabilitacao Cnh { get; set; }
+      namespace dot_net_api.Models
+      {
+          public class Pessoa
+          {
+              public int Id { get; set; }
+              public string Nome { get; set; }
+              public CarteiraNacionalHabilitacao Cnh { get; set; }
 
-        }
-    }
+          }
+      }
 
-_Entidade dependente:_
+- Entidade dependente:
 
-    namespace dot_net_api.Models
-    {
-        public class CarteiraNacionalHabilitacao
-        {
-            public int Id { get; set; }
-            public int Numero { get; set; }
-            public string OrgaoExpeditor { get; set; }
-            public Pessoa Pessoa { get; set; }
-            public int PessoaId { get; set; }
-        }
-    }
+      namespace dot_net_api.Models
+      {
+          public class CarteiraNacionalHabilitacao
+          {
+              public int Id { get; set; }
+              public int Numero { get; set; }
+              public string OrgaoExpeditor { get; set; }
+              public Pessoa Pessoa { get; set; }
+              public int PessoaId { get; set; }
+          }
+      }
 
 ### Relacionamento de entidades 1-N
 
-_Entidade principal:_
+- Entidade principal:
 
-    using System.Collections.ObjectModel;
-    using System.Collections.Generic;
+      using System.Collections.ObjectModel;
+      using System.Collections.Generic;
 
-    namespace dot_net_api.Models
-    {
-      public class Categoria
-        {
-          public Categoria()
+      namespace dot_net_api.Models
+      {
+        public class Categoria
           {
-            Produtos = new Collection<Produto>();
+            public Categoria()
+            {
+              Produtos = new Collection<Produto>();
+            }
+
+              public int id { get; set; }
+              public string Nome { get; set; }
+              public ICollection<Produto> Produtos { get; set; }
+
           }
+      }
 
-            public int id { get; set; }
-            public string Nome { get; set; }
-            public ICollection<Produto> Produtos { get; set; }
+- Entidade dependente:
 
-        }
-    }
-
-_Entidade dependente:_
-
-    namespace dot_net_api.Models
-    {
-        public class Produto
-        {
-            public int Id { get; set; }
-            public string Nome { get; set; }
-            public decimal Preco { get; set; }
-            public Categoria Categoria { get; set; }
-            public int CategoriaId { get; set; }
-        }
-    }
+      namespace dot_net_api.Models
+      {
+          public class Produto
+          {
+              public int Id { get; set; }
+              public string Nome { get; set; }
+              public decimal Preco { get; set; }
+              public Categoria Categoria { get; set; }
+              public int CategoriaId { get; set; }
+          }
+      }
 
 ### Relacionamento de entidades N-N
 
-_Relações muitos para muitos exigem uma propriedade de navegação de coleção em ambos os lados. Eles serão descobertos por convenções como outros tipos de relações._
+_Na versão usada do EF usada só é possivel fazer o relacionamento N-N com uma entidade de junção._
 
-_A maneira como essa relação é implementada no banco de dados é por uma tabela de junção que contém chaves estrangeiras para ambos entidades_
+- Entidade A:
 
-_Entidade A_
+      using System.Collections.Generic;
+      using System.Collections.ObjectModel;
 
-    using System.Collections.Generic;
-    namespace dot_net_api.Models
-    {
-        public class Carro
-        {
-            public int Id { get; set; }
-            public string Modelo { get; set; }
-            public string Cor { get; set; }
+      namespace dot_net_api.Models
+      {
+          public class Carro
+          {
+              public Carro()
+              {
+                  Motoristas = new Collection<MotoristaCarro>();
+              }
+              public int Id { get; set; }
+              public string Modelo { get; set; }
+              public string Cor { get; set; }
+              public ICollection<MotoristaCarro> Motoristas { get; set; }
+          }
+      }
 
-            public ICollection<Motorista> Condutores { get; set; }
-        }
-    }
+- Entidade B:
 
-_Entidade B_
+      using System.Collections.Generic;
+      using System.Collections.ObjectModel;
 
-    using System.Collections.Generic;
-    namespace dot_net_api.Models
-    {
-        public class Motorista
-        {
-            public int Id { get; set; }
-            public string Nome { get; set; }
-            public ICollection<Carro> Carros { get; set; }
-        }
-    }
+      namespace dot_net_api.Models
+      {
+          public class Motorista
+          {
+              public Motorista()
+              {
+                  Carros = new Collection<MotoristaCarro>();
+              }
+              public int Id { get; set; }
+              public string Nome { get; set; }
+              public ICollection<MotoristaCarro> Carros { get; set; }
+          }
+      }
 
-### Entidade de junção
+* Entidade de junção:
+
+      namespace dot_net_api.Models
+      {
+          public class MotoristaCarro
+          {
+              public int MotoristaId { get; set; }
+              public int CarroId { get; set; }
+              public Carro Carro { get; set; }
+              public Motorista Motorista { get; set; }
+          }
+      }
+
+  _Como a entidade de junção é dependente das outras duas entidades, não desejamos que ela seja independentemente gerenciada pelo Db Context. Não é necessario que a mesma tenha um Id próprio, porém é nessario que ela tenha uma chave privada No caso em questao essa chave primária será uma chave composta conforme o exemplo abaixo:_
+
+* #### Configurando a chave composta da entidade de junção:
+
+  _Na classe [ApplicationDbContext](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Context/ApplicationDbContext.cs) sobrescrever o methodo OnModelCreating(ModelBuilder modelBuilder) para configurar detalhes da chave composta da entidade de junção._
+
+      protected override void OnModelCreating(modelBuilder){}
+
+  _Indicar para o modelBuilder que a entidade de junção vai ter uma chave primária, passando como parâmetro um objeto anônimo composto pelos campos CarroId e MotoristaID._
+
+      protected override void OnModelCreati(ModelBuilder modelBuilder)
+      {
+        modelBuilder.Entity<MotoristaCarro>()
+                .HasKey(o => new { o.CarroId, o.MotoristaId });
+      }
 
 ### Anotações de entidades
+
+### Adicionando validação dos campos das entidades
+
+### Editar padroes especificos das migrantions no bdContex modelBuilder
+
+### Criação das migrations
+
+- Para criar uma migration usar no terminal o comando
+
+      dotnet ef migrations add nome_da_migration
+
+- Para remover uma migration usar no terminal o comando
+
+      dotnet ef migrations remove
+
+- Para atualizar o banco a partir da migration usar no terminal o comando
+
+      dotnet ef database update
+
+### Criação seed migrations para addicionar conteúdo ao banco
+
+### Criação exception handler
+
+### Criação http interceptor
+
+### Criação do padrao repositry para os acessos ao banco
+
+### Criação dos mappers de entidades pra Dtos
+
+### Criação e configuração do identity framework pra trabalhar com tokens
+
+### Criação endpoints de autenticação
+
+### Criação de um controller com endpoints protegiddos
