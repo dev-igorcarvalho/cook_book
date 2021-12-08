@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using dot_net_api.Context;
 using dot_net_api.Handlers;
 using Microsoft.EntityFrameworkCore;
+using dot_net_api.Http_filters;
 
 namespace dot_net_api
 {
@@ -28,6 +29,7 @@ namespace dot_net_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // services.AddScoped<SimpleFilter>();
             services
                 .AddDbContext<ApplicationDbContext>
                 (
@@ -35,11 +37,11 @@ namespace dot_net_api
                         options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
                 );
 
-            // services.AddControllers();
-            services.AddControllers(options =>
-            {
-                // options.Filters.Add(typeof(MySampleActionFilter));
-            });
+            services.AddControllers(options => { options.Filters.Add<SimpleFilter>(); });
+
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,7 +55,7 @@ namespace dot_net_api
 
             app.ConfigureExceptionHandler();
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
 
             app.UseRouting();
 

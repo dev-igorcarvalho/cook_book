@@ -22,10 +22,9 @@
 - [Criação das migrations](#criação-das-migrations)Criação das migrations
 - [Criação de Seeder usando migrations para addicionar conteúdo ao banco](#criação-de-Seeder-usando-migrations-para-addicionar-conteúdo-ao-banco)
 - [Criação exception handler](#criação-exception-handler)
-- Criação http interceptor
+- [Criação http filter](#criação-http-filter)
 - Criação do padrao repositry para os acessos ao banco
 - Criação dos mappers de entidades pra Dtos
-- Criação e configuração do identity framework pra trabalhar com tokens
 - Criação endpoints de autenticação
 - Criação de um controller com endpoints protegiddos
 - Criação dos controllers com as 5 opçoes basicas de endpoints
@@ -629,7 +628,7 @@ _Existem diversas opçoes de modificações possiveis, já demonstramos algumas 
           }
       }
 
-* Configurar o uso de exception handler na calsse [Startup](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Startup.cs)
+* Configurar o uso de exception handler na classe [Startup](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Startup.cs)
 
   _Dentro do metodo **Configure(IApplicationBuilder app, IWebHostEnvironment env)** adicionar a configração abaixo_
 
@@ -649,16 +648,12 @@ _Existem diversas opçoes de modificações possiveis, já demonstramos algumas 
               private readonly ILogger<SimpleFilter> _logger;
               public void OnActionExecuting(ActionExecutingContext context)
               {
-                  var request = context.HttpContext.Request.ToString();
                   _logger.LogDebug("Logando antes da execução da ação");
-                  _logger.LogDebug(request);
               }
 
               public void OnActionExecuted(ActionExecutedContext context)
               {
-                  var response = context.HttpContext.Response.ToString();
                   _logger.LogDebug("Logando depois da execução da ação");
-                  _logger.LogDebug(response);
               }
 
           }
@@ -666,11 +661,27 @@ _Existem diversas opçoes de modificações possiveis, já demonstramos algumas 
 
 * Configurando o uso global do filter
 
+  _Na classe [Startup](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Startup.cs), modificar o método **public void ConfigureServices(IServiceCollection services)**, trocando a chamada services.AddControllers() pelo código abaixo_
+
       services.AddControllers(options =>
         {
           options.Filters.Add(typeof(SimpleFilter));
         }
       );
+
+* Configurando o uso local por escopo do filter
+
+  - Configuração inicial
+
+    _Na classe [Startup](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Startup.cs), acrescentar no corpo do método **public void ConfigureServices(IServiceCollection services)** a linha de código abaixo _
+
+          services.AddScoped<SimpleFilter>();
+
+  - Utilização
+
+    _Inserir a anotação abaixo em um método de uma classe controler para ativar o filtro para aquele método, ou a nivel de classe para ativar o filtro para todos seus métodos_
+
+        [ServiceFilter(typeof(SimpleFilter))]
 
 ### Criação do padrao repository para os acessos ao banco
 
