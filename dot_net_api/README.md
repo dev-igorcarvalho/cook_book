@@ -19,7 +19,7 @@
   * [Relacionamento de entidades N-N](#relacionamento-de-entidades-N-N)
 - [Anotações de entidades](#anotações-de-entidades)
 - [Editar padroes especificos das migrantions no bdContex modelBuilder](#editar-padroes-especificos-das-migrantions-no-bdContex-modelBuilder)
-- [Criação das migrations](#criação-das-migrations)Criação das migrations
+- [Criação das migrations](#criação-das-migrations)
 - [Criação de Seeder usando migrations para addicionar conteúdo ao banco](#criação-de-Seeder-usando-migrations-para-addicionar-conteúdo-ao-banco)
 - [Criação exception handler](#criação-exception-handler)
 - [Criação http filter](#criação-http-filter)
