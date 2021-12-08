@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using dot_net_api.Context;
+using dot_net_api.Handlers;
 using Microsoft.EntityFrameworkCore;
 
 namespace dot_net_api
@@ -33,7 +34,12 @@ namespace dot_net_api
                     options =>
                         options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
                 );
-            services.AddControllers();
+
+            // services.AddControllers();
+            services.AddControllers(options =>
+            {
+                // options.Filters.Add(typeof(MySampleActionFilter));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,13 +50,16 @@ namespace dot_net_api
                 app.UseDeveloperExceptionPage();
             }
 
+
+            app.ConfigureExceptionHandler();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
 
-            app.UseExceptionHandler();
+
 
             app.UseEndpoints(endpoints =>
             {

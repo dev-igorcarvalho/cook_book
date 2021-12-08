@@ -21,7 +21,7 @@
 - [Editar padroes especificos das migrantions no bdContex modelBuilder](#editar-padroes-especificos-das-migrantions-no-bdContex-modelBuilder)
 - [Criação das migrations](#criação-das-migrations)Criação das migrations
 - [Criação de Seeder usando migrations para addicionar conteúdo ao banco](#criação-de-Seeder-usando-migrations-para-addicionar-conteúdo-ao-banco)
-- Criação exception handler
+- [Criação exception handler](#criação-exception-handler)
 - Criação http interceptor
 - Criação do padrao repositry para os acessos ao banco
 - Criação dos mappers de entidades pra Dtos
@@ -633,11 +633,46 @@ _Existem diversas opçoes de modificações possiveis, já demonstramos algumas 
 
   _Dentro do metodo **Configure(IApplicationBuilder app, IWebHostEnvironment env)** adicionar a configração abaixo_
 
-      app.UseExceptionHandler();
+      app.ConfigureExceptionHandler();
 
-### Criação http interceptor
+### Criação http filter
 
-### Criação do padrao repositry para os acessos ao banco
+- Criando um filter
+
+      using Microsoft.AspNetCore.Mvc.Filters;
+      using Microsoft.Extensions.Logging;
+
+      namespace dot_net_api.Http_filters
+      {
+          public class SimpleFilter : IActionFilter
+          {
+              private readonly ILogger<SimpleFilter> _logger;
+              public void OnActionExecuting(ActionExecutingContext context)
+              {
+                  var request = context.HttpContext.Request.ToString();
+                  _logger.LogDebug("Logando antes da execução da ação");
+                  _logger.LogDebug(request);
+              }
+
+              public void OnActionExecuted(ActionExecutedContext context)
+              {
+                  var response = context.HttpContext.Response.ToString();
+                  _logger.LogDebug("Logando depois da execução da ação");
+                  _logger.LogDebug(response);
+              }
+
+          }
+      }
+
+* Configurando o uso global do filter
+
+      services.AddControllers(options =>
+        {
+          options.Filters.Add(typeof(SimpleFilter));
+        }
+      );
+
+### Criação do padrao repository para os acessos ao banco
 
 ### Criação dos mappers de entidades pra Dtos
 
