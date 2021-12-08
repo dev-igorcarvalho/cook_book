@@ -12,6 +12,7 @@
 - [Criação e configuração do Identity](#criação-e-configuração-do-identity)
 - [Criação dos modelos de entidade relacional](#criação-dos-modelos-de-entidade-relacional)
   - [Entidade sem relacionamento](#entidade-sem-relacionamento)
+  * [Entidade com chave primaria composta](#entidade-com-chave-primaria-composta)
   * [Entidade não gerenciada pelo db context](#entidade-não-gerenciada-pelo-db-context)
   * [Relacionamento de entidades 1-1](#relacionamento-de-entidades-1-1)
   * [Relacionamento de entidades 1-N](#relacionamento-de-entidades-1-N)
