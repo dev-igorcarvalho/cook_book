@@ -250,7 +250,7 @@ _Neste exemplo vamos usar um relacionamento 1-1_
 
 - Configuração da classe filha no Db Context
 
-  _Na classe [ApplicationDbContext](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Context/ApplicationDbContext.cs) sobrescrever o methodo OnModelCreating(ModelBuilder modelBuilder) para configurar detalhes da classe Endereco_
+  _Na classe [ApplicationDbContext](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Context/ApplicationDbContext.cs) sobrescrever o methodo **OnModelCreating(ModelBuilder modelBuilder)**para configurar detalhes da classe Endereco_
 
       protected override void OnModelCreating(modelBuilder){}
 
@@ -416,7 +416,7 @@ _Na versão usada do EF usada só é possivel fazer o relacionamento N-N com uma
 
 * #### Configurando a chave composta da entidade de junção:
 
-  _Na classe [ApplicationDbContext](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Context/ApplicationDbContext.cs) sobrescrever o methodo OnModelCreating(ModelBuilder modelBuilder) para configurar detalhes da chave composta da entidade de junção._
+  _Na classe [ApplicationDbContext](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Context/ApplicationDbContext.cs) sobrescrever o methodo **OnModelCreating(ModelBuilder modelBuilder)** para configurar detalhes da chave composta da entidade de junção._
 
       protected override void OnModelCreating(modelBuilder){}
 
@@ -430,9 +430,124 @@ _Na versão usada do EF usada só é possivel fazer o relacionamento N-N com uma
 
 ### Anotações de entidades
 
-### Adicionando validação dos campos das entidades
+- [Table("nome_tabela")]
+
+  _Nomeia a tabela no banco_
+
+      [Table("nome_tabela")]
+      public class SuaClasse
+      {
+      public int ID { get; set; }
+      }
+
+- [Column("nome_coluna")]
+
+  _Nomeia uma coluna da tabela_
+
+      public class SuaClasse
+      {
+      [Column("nome_coluna")]
+      public string MeuAtributo { get; set; }
+      }
+
+- [Key]
+
+  _Marca um atributo como chave primária_
+
+      public class SuaClasse
+      {
+      [Key]
+      public int CodigoDoEstoque { get; set; }
+      }
+
+* [ForeignKey("nome_chave")]
+
+  _Marca um atributo como chave extrangeira_
+
+      public class Carro
+      {
+          public int Id { get; set; }
+          public string Modelo { get; set; }
+
+          public int PessoaId { get; set; }
+          public Pessoa Pessoa { get; set; }
+      }
+
+      public class Pessoa
+      {
+          public int Id { get; set; }
+
+          [ForeignKey("PessoaId")]
+          public ICollection<Carro> Carros { get; set; }
+      }
+
+- [NotMapped]
+
+  _Marca um atributo para não ser mapeado como coluna da tabela no DB_
+
+      public class SuaClasse
+      {
+      [NotMapped]
+      public int MeuAtributo { get; set; }
+      }
+
+- [Required]
+
+  _Marca um atributo como non nullable_
+
+      public class SuaClasse
+      {
+      [Required]
+      public int MeuAtributo { get; set; }
+      }
+
+- [MaxLength(50)]
+
+  _Limita a quantidaade de caracteres de uma string ou byte[]_
+
+        public class SuaClasse
+        {
+        [MaxLength(50)]
+        public string Nome { get; set; }
+        }
+
+- [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
+  _Especifica que um valor vai ser atribuido a propriedade apenas na hora da primeira gravação no banco, não sendo atualizado nas gravações e modificações futuras deste mesmo registro_
+
+        public class SuaClasse
+        {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public DateTime DataCriacao { get; set; }
+        }
+
+- [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+
+  _Especifica que um valor vai ser atribuido a propriedade na hora da primeira gravação no banco e nas gravações e modificações futuras deste mesmo registro, atualizando o valor a cada nova gravação_
+
+        public class SuaClasse
+        {
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime DataEdicao { get; set; }
+        }
 
 ### Editar padroes especificos das migrantions no bdContex modelBuilder
+
+_É possível editar e modificar propriedades especificas de uma entidade / tabela modificando o metodo **OnModelCreating(ModelBuilder modelBuilder)** na classe [ApplicationDbContext](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Context/ApplicationDbContext.cs)_
+
+_Existem diversas opçoes de modificações possiveis, já demonstramos algumas em exemplos anteriores, conforme o código repetido abaixo:_
+
+    protected override void OnModelCreati(ModelBuilder modelBuilder)
+      {
+        modelBuilder
+          .Entity<Endereco>().ToTable Enderecos");
+
+        modelBuilder
+          .Entity<Endereco>().Property<int> ClienteId");
+
+        modelBuilder
+          .Entity<Endereco>().HasKey("ClienteId");
+      }
 
 ### Criação das migrations
 
