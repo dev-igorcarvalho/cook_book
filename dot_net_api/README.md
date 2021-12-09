@@ -27,15 +27,14 @@
 - [Criação dos mappers de entidades pra Dtos](#criação-dos-mappers-de-entidades-pra-dtos)
 - Criação endpoints de autenticação
 - Criação de um controller com endpoints protegiddos
-- Criação dos controllers com as 5 opçoes basicas de endpoints
-  - GET
-    - Simples
-    - Com path variable
-    - Com query params
-    - Com paginação
-  - POST
-  - PUT
-  - DELETE
+- [Criação dos controllers](criação-dos-controllers)
+  - [GET](#get)
+    - [Simples](#simples)
+    - [Com path variable](#com-path-variable)
+    - [Com query params](#com-query-params)
+  - [POST](#put)
+  - [PUT](#put)
+  - [DELETE](#delete)
 
 ---
 
@@ -896,7 +895,23 @@ _A anotacao [Route("api/v1/[controller]")] vai definir a rota de acordo com o no
         }
 
   - #### Com query params
-  - #### Com paginação
+
+    _O dot net core pega os query params automaticamente caso o nome dos query params da url sejam igual aos parametros do metodo_
+
+    _Alem disso podemos usar a anotacao [FromQuery(Name = "nome_do_param_na_url")] para fazer um data bind de um param de url para um parametro de metodo com nome diferente_
+
+        [HttpGet]
+        public IActionResult getQueryParam(string nome, int idade)
+        {
+            return Ok(new { nome = nome, idade = idade });
+        }
+
+        [HttpGet]
+        public IActionResult getParamBind([FromQuery(Name = "apelido")] string nome,
+        [FromQuery(Name = "quanidade")] int idade)
+        {
+            return Ok(new { nome = nome, idade = idade });
+        }
 
 - #### POST
 
