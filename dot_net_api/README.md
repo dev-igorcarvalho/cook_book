@@ -183,7 +183,7 @@ _Para mais detalhes verificar a [documentação](https://docs.microsoft.com/pt-b
         {
             public class Evento
             {
-                public string Id { get; set; }
+                public Int Id { get; set; }
                 public string Nome { get; set; }
                 public string Local { get; set; }
                 public int QuantidadeParticipantes { get; set; }
@@ -836,6 +836,105 @@ _Podemos mapear nossas entidades para dtos, protegendo parte da informação que
       IMapper mapper = mapperConfig.CreateMapper();
       services.AddSingleton(mapper);
 
-### Criação endpoints de autenticação
+* Exemplos de uso do auto mapper
 
-### Criação de um controller com endpoints protegiddos
+  - De entidade para dto
+
+        _mapper.Map<EventoDto>(evento);
+
+  - De lista de entidades para lista de dtos
+
+        _mapper.Map<List<EventoDto>>(eventos);
+
+  - De lista de dtos para lista de entidades
+
+        _mapper.Map<List<Evento>>(dtos);
+
+  - De dto para entidade
+
+        _mapper.Map<Evento>(dto);
+
+### Criação dos controllers
+
+_Para criar um controller, precisamos criar uma [classe]() que extenda a class BaseController, e anotar elas com as anotacoes [ApiController] e [Route("api/v1/[controller]")]_
+
+_A anotacao [Route("api/v1/[controller]")] vai definir a rota de acordo com o nome da classe controller criada. Ex:_
+
+        namespace dot_net_api.Controllers
+        {
+          [ApiController]
+          [Route("api/v1/[controller]")]
+          public class EventoController : ControllerBase
+          {
+          }
+        }
+
+- #### GET
+
+  - #### Simples
+
+    _Deve ser anotado com [HttpGet]_
+
+        [HttpGet]
+        public IActionResult get()
+        {
+            var eventos = _repository.Get().ToList();
+            var result = _mapper.Map<List<EventoDto>>(eventos);
+            return Ok(result);
+        }
+
+  - #### Com path variable
+
+    _Deve ser anotado com [HttpGet("{nome_variavel}")], e deve receber como parametro no metodo uma variavel de mesmo nome_
+
+        [HttpGet("{id}")]
+        public IActionResult get(int id)
+        {
+          var result = \_repository.GetById(p => p.Id == id);
+          if (result != null) return Ok(result);
+          return NotFound("Evento nao encontrado");
+        }
+
+  - #### Com query params
+  - #### Com paginação
+
+- #### POST
+
+  _Deve ser anotado com [HttpPost], e deve receber como parametro no metodo uma variavel anotada com [FromBody]_
+
+      [HttpPost]
+      public IActionResult post([FromBody] EventoDto request)
+      {
+        var evento = _mapper.Map<Evento>(request);
+        _repository.Add(evento);
+        return Created("Criar Evento", evento);
+      }
+
+- #### PUT
+
+  _Deve ser anotado com [HttpPut("{id}")],deve receber como parametro no metodo uma variavel de mesmo nome, e deve receber como parametro no metodo uma variavel anotada com [FromBody]_
+
+      [HttpPut("{id}")]
+      public IActionResult update(int id, [FromBody] EventoDto request)
+      {
+        var evento = _mapper.Map<Evento>(request);
+        evento.Id = id;
+        _repository.Update(evento);
+        return Created("Atualizar Evento", evento);
+      }
+
+- #### DELETE
+
+  _Deve ser anotado com [HttpDelete("{nome_variavel}")], e deve receber como parametro no metodo uma variavel de mesmo nome_
+
+      [HttpDelete("{id}")]
+      public IActionResult delete(int id)
+      {
+      var result = _repository.GetById(p => p.Id.Equals(id));
+      if (result != null)
+        {
+          _repository.Delete(result);
+          return Ok();
+        }
+        return BadRequest("Evento nao exite");
+      }

@@ -8,15 +8,16 @@ namespace dot_net_api.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Nome { get; set; }
         public string Local { get; set; }
         public int QuantidadeParticipantes { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public DateTime DataCriacao { get; set; }
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime DataEdicao { get; set; }
+        // [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        // public DateTime DataCriacao { get; set; }
+
+        // [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        // public DateTime DataEdicao { get; set; }
 
     }
 }
