@@ -160,11 +160,11 @@ _Obs: A senha precisa ter no mínimo 8 digitos, letras maiúsculas, minúsculas,
       "DefaultConnection": "Server=url_do_bancoo;DataBase=nome_da_db:Uid=nome_usuario;Pwd=senha_usuario"
       },
 
-## Instalação das dependências do Identity Framework
+<!-- ## Instalação das dependências do Identity Framework
 
 ## Instalação das dependências do JWT
 
-## Criação e configuração do Identity
+## Criação e configuração do Identity -->
 
 ## Criação dos modelos de entidade relacional
 
