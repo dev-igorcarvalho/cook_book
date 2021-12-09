@@ -787,6 +787,55 @@ _Existem diversas opçoes de modificações possiveis, já demonstramos algumas 
 
 ### Criação dos mappers de entidades pra Dtos
 
+_Podemos mapear nossas entidades para dtos, protegendo parte da informação que será propagada, e evitando expor detalhes íntimos das nossas classes de domínio_
+
+- Instalar as dependências do AutoMapper
+
+      dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection --version 8.1.1
+
+      dotnet add package AutoMapper --version 10.1.1
+
+- Criar uma [classe] Dto com as informações que desejamos propagar da [entidade] selecionada.
+
+      namespace dot_net_api.Dtos
+      {
+          public class EventoDto
+          {
+              public string Id { get; set; }
+              public string Nome { get; set; }
+              public string Local { get; set; }
+          }
+      }
+
+* Criar uma classe com as configurações de mapeamento
+
+  _Nesta classe, usamos a lib do AutoMapper para definir quais entidades correspondem ao dtos desejados._
+
+      using AutoMapper;
+      using dot_net_api.Models;
+
+      namespace dot_net_api.Dtos.Mappers
+      {
+          public class MappingProfiler : Profile
+          {
+              public MappingProfiler()
+              {
+                  CreateMap<Evento, EventoDto>().ReverseMap();
+              }
+          }
+      }
+
+* Configurar shalo uso do auto mapper
+
+  _Na classe [Startup](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Startup.cs), acrescentar no corpo do método **public void ConfigureServices(IServiceCollection services)** o bloco código abaixo _
+
+      var mapperConfig = new MapperConfiguration(mc =>
+      {
+      mc.AddProfile(new MappingProfiler());
+      });
+      IMapper mapper = mapperConfig.CreateMapper();
+      services.AddSingleton(mapper);
+
 ### Criação endpoints de autenticação
 
 ### Criação de um controller com endpoints protegiddos

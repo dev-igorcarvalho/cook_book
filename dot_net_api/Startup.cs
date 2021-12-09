@@ -15,6 +15,8 @@ using dot_net_api.Handlers;
 using Microsoft.EntityFrameworkCore;
 using dot_net_api.Http_filters;
 using dot_net_api.Repositories;
+using AutoMapper;
+using dot_net_api.Dtos.Mappers;
 
 namespace dot_net_api
 {
@@ -30,6 +32,16 @@ namespace dot_net_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfiler());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
+
             services.AddScoped<EventoRepository>(); // registra a classe no injetor de dependencias
             services
                 .AddDbContext<ApplicationDbContext>
