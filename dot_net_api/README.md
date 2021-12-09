@@ -795,7 +795,7 @@ _Podemos mapear nossas entidades para dtos, protegendo parte da informação que
 
       dotnet add package AutoMapper --version 10.1.1
 
-- Criar uma [classe] Dto com as informações que desejamos propagar da [entidade] selecionada.
+- Criar uma [classe](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Dtos/EventoDto.cs) Dto com as informações que desejamos propagar da [entidade](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Models/Evento.cs) selecionada.
 
       namespace dot_net_api.Dtos
       {
@@ -807,7 +807,7 @@ _Podemos mapear nossas entidades para dtos, protegendo parte da informação que
           }
       }
 
-* Criar uma classe com as configurações de mapeamento
+* Criar uma [classe](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Dtos/Mappers/MappingProfiler.cs) com as configurações de mapeamento
 
   _Nesta classe, usamos a lib do AutoMapper para definir quais entidades correspondem ao dtos desejados._
 
