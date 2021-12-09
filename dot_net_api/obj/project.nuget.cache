@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "hGJvJ0UX4QFI3hssU39X/G5RcHuGfOHBD6lks1tEdNwLjj2zW/NKdHyoORsr3T206q/kfUmSt6QFQ1c5tyZFsg==",
+  "dgSpecHash": "V9/xa05AwKfV9QdrChPoLwx76KBKVo3d5YveqP4Vs1lNHlrdBtakqt0y7M2ITCjrIWrgS00thP8DoiN9zY8Qdw==",
   "success": true,
   "projectFilePath": "/home/datagrupo/Documents/igor/projetos/cook_book/dot_net_api/dot_net_api.csproj",
   "expectedPackageFiles": [
+    "/home/datagrupo/.nuget/packages/automapper/10.1.1/automapper.10.1.1.nupkg.sha512",
+    "/home/datagrupo/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/8.1.1/automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
     "/home/datagrupo/.nuget/packages/microsoft.bcl.asyncinterfaces/1.1.1/microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "/home/datagrupo/.nuget/packages/microsoft.bcl.hashcode/1.1.1/microsoft.bcl.hashcode.1.1.1.nupkg.sha512",
     "/home/datagrupo/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
@@ -69,7 +71,7 @@
     "/home/datagrupo/.nuget/packages/system.objectmodel/4.3.0/system.objectmodel.4.3.0.nupkg.sha512",
     "/home/datagrupo/.nuget/packages/system.private.datacontractserialization/4.3.0/system.private.datacontractserialization.4.3.0.nupkg.sha512",
     "/home/datagrupo/.nuget/packages/system.reflection/4.3.0/system.reflection.4.3.0.nupkg.sha512",
-    "/home/datagrupo/.nuget/packages/system.reflection.emit/4.3.0/system.reflection.emit.4.3.0.nupkg.sha512",
+    "/home/datagrupo/.nuget/packages/system.reflection.emit/4.7.0/system.reflection.emit.4.7.0.nupkg.sha512",
     "/home/datagrupo/.nuget/packages/system.reflection.emit.ilgeneration/4.3.0/system.reflection.emit.ilgeneration.4.3.0.nupkg.sha512",
     "/home/datagrupo/.nuget/packages/system.reflection.emit.lightweight/4.3.0/system.reflection.emit.lightweight.4.3.0.nupkg.sha512",
     "/home/datagrupo/.nuget/packages/system.reflection.extensions/4.3.0/system.reflection.extensions.4.3.0.nupkg.sha512",
