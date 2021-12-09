@@ -25,8 +25,8 @@
 - [Criação http filter](#criação-http-filter)
 - [Criação do padrao repository para os acessos ao banco](#criação-do-padrao-repository-para-os-acessos-ao-banco)
 - [Criação dos mappers de entidades pra Dtos](#criação-dos-mappers-de-entidades-pra-dtos)
-- Criação endpoints de autenticação
-- Criação de um controller com endpoints protegiddos
+<!-- - Criação endpoints de autenticação
+- Criação de um controller com endpoints protegiddos -->
 - [Criação dos controllers](criação-dos-controllers)
   - [GET](#get)
     - [Simples](#simples)
