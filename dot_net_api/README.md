@@ -856,7 +856,7 @@ _Podemos mapear nossas entidades para dtos, protegendo parte da informação que
 
 ### Criação dos controllers
 
-_Para criar um controller, precisamos criar uma [classe]() que extenda a class BaseController, e anotar elas com as anotacoes [ApiController] e [Route("api/v1/[controller]")]_
+_Para criar um controller, precisamos criar uma [classe](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Controllers/EventoController.cs) que extenda a class BaseController, e anotar elas com as anotacoes [ApiController] e [Route("api/v1/[controller]")]_
 
 _A anotacao [Route("api/v1/[controller]")] vai definir a rota de acordo com o nome da classe controller criada. Ex:_
 
