@@ -24,7 +24,7 @@
 - [Criação exception handler](#criação-exception-handler)
 - [Criação http filter](#criação-http-filter)
 - [Criação do padrao repository para os acessos ao banco](#criação-do-padrao-repository-para-os-acessos-ao-banco)
-- Criação dos mappers de entidades pra Dtos
+- [Criação dos mappers de entidades pra Dtos](#criação-dos-mappers-de-entidades-pra-dtos)
 - Criação endpoints de autenticação
 - Criação de um controller com endpoints protegiddos
 - Criação dos controllers com as 5 opçoes basicas de endpoints
@@ -825,7 +825,7 @@ _Podemos mapear nossas entidades para dtos, protegendo parte da informação que
           }
       }
 
-* Configurar shalo uso do auto mapper
+* Configurar o uso do auto mapper
 
   _Na classe [Startup](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Startup.cs), acrescentar no corpo do método **public void ConfigureServices(IServiceCollection services)** o bloco código abaixo _
 
