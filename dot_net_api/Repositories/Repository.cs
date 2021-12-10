@@ -41,5 +41,10 @@ namespace dot_net_api.Repositories
             _context.Set<T>().Update(entity);
             _context.SaveChanges();
         }
+
+        public IQueryable<T> FromSql(string query)
+        {
+            return _context.Set<T>().FromSqlRaw(query).AsNoTracking();
+        }
     }
 }

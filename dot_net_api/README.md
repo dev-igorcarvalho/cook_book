@@ -699,8 +699,7 @@ _Existem diversas opçoes de modificações possiveis, já demonstramos algumas 
               void Add(T entity);
               void Update(T entity);
               void Delete(T entity);
-
-
+              IQueryable<T> FromSql(string query);
           }
       }
 
@@ -748,6 +747,11 @@ _Existem diversas opçoes de modificações possiveis, já demonstramos algumas 
                   _context.Entry(entity).State = EntityState.Modified;
                   _context.Set<T>().Update(entity);
                   _context.SaveChanges();
+              }
+
+              public IQueryable<T> FromSql(string query)
+              {
+                  return _context.Set<T>().FromSqlRaw(query).AsNoTracking();
               }
           }
       }
