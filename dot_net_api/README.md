@@ -861,7 +861,7 @@ _Podemos mapear nossas entidades para dtos, protegendo parte da informação que
 
 _Para criar um controller, precisamos criar uma [classe](https://github.com/dev-igorcarvalho/cook_book/blob/master/dot_net_api/Controllers/EventoController.cs) que extenda a class BaseController, e anotar elas com as anotacoes [ApiController] e [Route("api/v1/[controller]")]_
 
-_A anotacao [Route("api/v1/[controller]")] vai definir a rota de acordo com o nome da classe controller criada. Ex:_
+_A anotação [Route("api/v1/[controller]")] vai definir a rota de acordo com o nome da classe controller criada. Ex:_
 
         namespace dot_net_api.Controllers
         {
@@ -888,7 +888,7 @@ _A anotacao [Route("api/v1/[controller]")] vai definir a rota de acordo com o no
 
   - #### Com path variable
 
-    _Deve ser anotado com [HttpGet("{nome_variavel}")], e deve receber como parametro no metodo uma variavel de mesmo nome_
+    _Deve ser anotado com [HttpGet("{nome_variavel}")], e deve receber como parâmetro no método uma variável de mesmo nome_
 
         [HttpGet("{id}")]
         public IActionResult get(int id)
@@ -900,9 +900,9 @@ _A anotacao [Route("api/v1/[controller]")] vai definir a rota de acordo com o no
 
   - #### Com query params
 
-    _O dot net core pega os query params automaticamente caso o nome dos query params da url sejam igual aos parametros do metodo_
+    \_O dot net core pega os query params automaticamente caso o nome dos query params da url sejam igual aos parâmetros do método
 
-    _Alem disso podemos usar a anotacao [FromQuery(Name = "nome_do_param_na_url")] para fazer um data bind de um param de url para um parametro de metodo com nome diferente_
+    _Alem disso podemos usar a anotação [FromQuery(Name = "nome_do_param_na_url")] para fazer um data bind de um param de url para um parâmetro de método com nome diferente_
 
         [HttpGet]
         public IActionResult getQueryParam(string nome, int idade)
@@ -919,7 +919,7 @@ _A anotacao [Route("api/v1/[controller]")] vai definir a rota de acordo com o no
 
 - #### POST
 
-  _Deve ser anotado com [HttpPost], e deve receber como parametro no metodo uma variavel anotada com [FromBody]_
+  _Deve ser anotado com [HttpPost], e deve receber como parâmetro no método uma variável anotada com [FromBody]_
 
       [HttpPost]
       public IActionResult post([FromBody] EventoDto request)
@@ -931,7 +931,7 @@ _A anotacao [Route("api/v1/[controller]")] vai definir a rota de acordo com o no
 
 - #### PUT
 
-  _Deve ser anotado com [HttpPut("{id}")],deve receber como parametro no metodo uma variavel de mesmo nome, e deve receber como parametro no metodo uma variavel anotada com [FromBody]_
+  _Deve ser anotado com [HttpPut("{id}")],deve receber como parâmetro no método uma variavel de mesmo nome, e deve receber como parametro no método uma variável anotada com [FromBody]_
 
       [HttpPut("{id}")]
       public IActionResult update(int id, [FromBody] EventoDto request)
@@ -944,7 +944,7 @@ _A anotacao [Route("api/v1/[controller]")] vai definir a rota de acordo com o no
 
 - #### DELETE
 
-  _Deve ser anotado com [HttpDelete("{nome_variavel}")], e deve receber como parametro no metodo uma variavel de mesmo nome_
+  _Deve ser anotado com [HttpDelete("{nome_variavel}")], e deve receber como parâmetro no método uma variável de mesmo nome_
 
       [HttpDelete("{id}")]
       public IActionResult delete(int id)
