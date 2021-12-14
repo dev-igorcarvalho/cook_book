@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using dot_net_api.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace dot_net_api.Controllers
 {
@@ -15,14 +9,30 @@ namespace dot_net_api.Controllers
         [HttpGet]
         public IActionResult getQueryParam(string nome, int idade)
         {
+
             return Ok(new { nome = nome, idade = idade });
         }
 
         [HttpGet]
+        [Route("parametrizado")]
         public IActionResult getParamBind([FromQuery(Name = "apelido")] string nome,
-        [FromQuery(Name = "quanidade")] int idade)
+        [FromQuery(Name = "quantidade")] int idade)
         {
             return Ok(new { nome = nome, idade = idade });
+        }
+
+        [HttpGet]
+        [Route("subRota")]
+        public IActionResult getSubRota()
+        {
+            return Ok("usando uma sub rota");
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public IActionResult getPathVariable(int id)
+        {
+            return Ok(new { pathVariable = id });
         }
     }
 }

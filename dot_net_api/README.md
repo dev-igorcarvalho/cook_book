@@ -17,6 +17,7 @@
   * [Relacionamento de entidades 1-1](#relacionamento-de-entidades-1-1)
   * [Relacionamento de entidades 1-N](#relacionamento-de-entidades-1-N)
   * [Relacionamento de entidades N-N](#relacionamento-de-entidades-N-N)
+- [Carregando entidades relacionas com EF CORE](carregando-entidades-relacionas-com-ef-core)
 - [Anotações de entidades](#anotações-de-entidades)
 - [Editar padroes especificos das migrantions no bdContex modelBuilder](#editar-padroes-especificos-das-migrantions-no-bdContex-modelBuilder)
 - [Criação das migrations](#criação-das-migrations)
@@ -425,6 +426,8 @@ _Na versão usada do EF usada só é possivel fazer o relacionamento N-N com uma
         modelBuilder.Entity<MotoristaCarro>()
                 .HasKey(o => new { o.CarroId, o.MotoristaId });
       }
+
+### Carregando entidades relacionas com EF CORE
 
 ### Anotações de entidades
 
@@ -863,20 +866,33 @@ _Para criar um controller, precisamos criar uma [classe](https://github.com/dev-
 
 _A anotação [Route("api/v1/[controller]")] vai definir a rota de acordo com o nome da classe controller criada. Ex:_
 
-        namespace dot_net_api.Controllers
-        {
-          [ApiController]
-          [Route("api/v1/[controller]")]
-          public class EventoController : ControllerBase
-          {
-          }
-        }
+    namespace dot_net_api.Controllers
+    {
+      [ApiController]
+      [Route("api/v1/[controller]")]
+      public class EventoController : ControllerBase
+      {
+      }
+    }
+
+_A anotação [Route("nome_sub_rota")] também pode ser utilizada diretamente nos metodos para definir sub rotas do mesmo controller, não sendo necessário incluir o caracter / . Ex:_
+
+_ex de url: http://localhost:5000/api/v1/nome_recurso/nome_sub_rota_
+
+    [HttpGet]
+    [Route("subRota")]
+    public IActionResult getParamBind()
+    {
+      return Ok("usando uma sub rota");
+    }
 
 - #### GET
 
   - #### Simples
 
     _Deve ser anotado com [HttpGet]_
+
+    _ex de url: http://localhost:5000/api/v1/Evento_
 
         [HttpGet]
         public IActionResult get()
@@ -890,19 +906,21 @@ _A anotação [Route("api/v1/[controller]")] vai definir a rota de acordo com o 
 
     _Deve ser anotado com [HttpGet("{nome_variavel}")], e deve receber como parâmetro no método uma variável de mesmo nome_
 
+    _ex de url: http://localhost:5000/api/v1/Evento/2_
+
         [HttpGet("{id}")]
         public IActionResult get(int id)
         {
-          var result = \_repository.GetById(p => p.Id == id);
+          var result = _repository.GetById(p => p.Id == id);
           if (result != null) return Ok(result);
           return NotFound("Evento nao encontrado");
         }
 
   - #### Com query params
 
-    \_O dot net core pega os query params automaticamente caso o nome dos query params da url sejam igual aos parâmetros do método
+    _O dot net core pega os query params automaticamente caso o nome dos query params da url sejam igual aos parâmetros do método_
 
-    _Alem disso podemos usar a anotação [FromQuery(Name = "nome_do_param_na_url")] para fazer um data bind de um param de url para um parâmetro de método com nome diferente_
+    _ex de url: http://localhost:5000/api/v1/Pessoa?nome=fulano&idade=22_
 
         [HttpGet]
         public IActionResult getQueryParam(string nome, int idade)
@@ -910,9 +928,13 @@ _A anotação [Route("api/v1/[controller]")] vai definir a rota de acordo com o 
             return Ok(new { nome = nome, idade = idade });
         }
 
+    _Alem disso podemos usar a anotação [FromQuery(Name = "nome_do_param_na_url")] para fazer um data bind de um param de url para um parâmetro de método com nome diferente_
+
+    _ex de url: http://localhost:5000/api/v1/Pessoa?apelido=fulano&quantidade=22_
+
         [HttpGet]
         public IActionResult getParamBind([FromQuery(Name = "apelido")] string nome,
-        [FromQuery(Name = "quanidade")] int idade)
+        [FromQuery(Name = "quantidade")] int idade)
         {
             return Ok(new { nome = nome, idade = idade });
         }

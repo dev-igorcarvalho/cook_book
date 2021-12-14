@@ -9,7 +9,7 @@ namespace dot_net_api.Models
         {
             Produtos = new Collection<Produto>();
         }
-        public int id { get; set; }
+        public int Id { get; set; }
         public string Nome { get; set; }
 
         public ICollection<Produto> Produtos { get; set; }

@@ -50,11 +50,11 @@ namespace dot_net_api
                         options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
                 );
 
-            services.AddControllers(options => { options.Filters.Add<SimpleFilter>(); });
-
-
-
-
+            services
+            .AddControllers(options => { options.Filters.Add<SimpleFilter>(); })
+            .AddNewtonsoftJson(options =>
+                options.SerializerSettings
+                .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

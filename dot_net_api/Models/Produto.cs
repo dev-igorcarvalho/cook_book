@@ -1,4 +1,6 @@
 using System;
+using System.Text.Json.Serialization;
+
 namespace dot_net_api.Models
 {
     public class Produto
