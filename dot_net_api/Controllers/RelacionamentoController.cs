@@ -43,9 +43,9 @@ namespace dot_net_api.Controllers
         public IActionResult manyToMany()
         {
             var result = _context.Motoristas
-            .Include(m => m.Carros)
-            .ThenInclude(c => c.Carro)
-            .ToList();
+                .Include(m => m.Carros)
+                .ThenInclude(c => c.Carro)
+                .ToList();
             return Ok(result);
         }
 

@@ -17,7 +17,7 @@
   * [Relacionamento de entidades 1-1](#relacionamento-de-entidades-1-1)
   * [Relacionamento de entidades 1-N](#relacionamento-de-entidades-1-N)
   * [Relacionamento de entidades N-N](#relacionamento-de-entidades-N-N)
-- [Carregando entidades relacionas com EF CORE](carregando-entidades-relacionas-com-ef-core)
+- [Carregando entidades relacionas com EF CORE](#carregando-entidades-relacionas-com-ef-core)
 - [Anotações de entidades](#anotações-de-entidades)
 - [Editar padroes especificos das migrantions no bdContex modelBuilder](#editar-padroes-especificos-das-migrantions-no-bdContex-modelBuilder)
 - [Criação das migrations](#criação-das-migrations)
@@ -428,6 +428,47 @@ _Na versão usada do EF usada só é possivel fazer o relacionamento N-N com uma
       }
 
 ### Carregando entidades relacionas com EF CORE
+
+Para informações profundas sobre o assunto conultar:
+
+    https://docs.microsoft.com/en-us/ef/core/querying/related-data
+
+#### Relação 1-1
+
+_Ao trazer todos os registros da entidade principal o EF core ira incluir a entidade secundaria. Caso existam várias entidades secundarias é possével adicionar mais Include()_
+
+      var result = _context.Clientes.Include(c => c.Endereco).ToList();
+
+#### Relação 1-N
+
+_Ao trazer todos os registros da entidade principal o EF core ira incluir a lista de entidades secundarias. Caso existam várias entidades secundarias é possével adicionar mais Include()_
+
+      var result = _context.Categorias.Include(c => c.Produtos).ToList();
+
+#### Relação N-N
+
+_No caso do n-n onde temos um entidade de relação entre a entidade primária e a secundária é necessário fazer um include de um nivel mais profundo com o ThenInclude() que irá incluir uma entidade terciaria no resultado_
+
+      var result = _context.Motoristas
+                .Include(m => m.Carros)
+                .ThenInclude(c => c.Carro)
+                .ToList();
+
+#### Joins Personalizados
+
+_No caso de joins personalizados utilizamos o método join(), e especificamos os parâmetros:_
+
+- _entidade a ser incluída no join_
+- _atributo da entidade primária a ser usado na comparação_
+- _atributo da entidade secundária a ser usado na comparação_
+- _objeto de resultado a ser passado como retorno do método_
+
+      var result = _context.Categorias.Join(
+                _context.Produtos,
+                c => c.Id,
+                p => p.CategoriaId,
+                (categoria, produto) =>
+                    new { Categoria = categoria.Nome, Produto = produto.Nome })
 
 ### Anotações de entidades
 
