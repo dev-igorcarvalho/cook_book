@@ -290,6 +290,15 @@ _Retorna a quantidade de registros que satsifazem a condição epecificada._
     FROM produtos
     WHERE preco > 10;
 
+_Retorna a quantidade de registros que satsifazem a condição epecificada sem contar registros duplicados._
+
+```sql
+SELECT COUNT(DISTINCT M.Id) motoristas_ocupados
+    FROM Motoristas M
+    INNER JOIN MotoristaCarro MC
+    on m.Id = MC.MotoristaId;
+```
+
 ### Avg:
 
 _Retorna a média dos valores da coluna selecionada._
