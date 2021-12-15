@@ -2,7 +2,30 @@
 
 ## Index:
 
-- [Instalação dos plugins do VS code](#instalação-dos-plugins-do-vs-code)
+- [Documentações oficiais para consulta](#cdcumentações-oficiais-para-consulta)
+
+* [Instalação dos plugins do VS code](#instalação-dos-plugins-do-vs-code)
+
+- [Criação do projeto](#Criação-do-projeto)
+- [Instalação das depenências do projeto](#instalação-das-depenências-do-projeto)
+
+## Documentações oficiais para consulta
+
+- React js
+
+        https://reactjs.org/docs/hooks-reference.html
+
+- Material UI
+
+        https://mui.com/pt/getting-started/usage/
+
+- Styled Components
+
+        https://styled-components.com/docs/basics#getting-started
+
+- Axios
+
+        https://axios-http.com/docs/intro
 
 ## Instalação dos plugins do VS code:
 
@@ -25,7 +48,6 @@ _No linha de comando do terminal, dentro da pasta do projeto, rodar o comando ab
 
     npx create-react-app my-app
 
-
 ## Instalação das depenências do projeto:
 
 ### Pré-Requisitos:
@@ -36,5 +58,3 @@ _No linha de comando do terminal, dentro da pasta do projeto, rodar os comandos 
 
     npm install @mui/material @emotion/react @emotion/styled
     npm install --save styled-components
-
-
