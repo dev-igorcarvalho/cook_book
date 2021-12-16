@@ -499,15 +499,15 @@ _No caso de joins personalizados utilizamos o método join(), e especificamos os
 
 - Filtrando a busca no banco pelos parâmetros da paginação
 
-_Obs: Como o método skip() pula X registros na busca, precisamos ajustar o número de registros ignorados em relação a página escolhida_
+  _Obs: Como o método skip() pula X registros na busca, precisamos ajustar o número de registros ignorados em relação a página escolhida_
 
-_Obs2: O método take() limita a quantidade de registros buscados ao int passado como parâmetro_
+  _Obs2: O método take() limita a quantidade de registros buscados ao int passado como parâmetro_
 
-```c#
-var result = _context.Set<Evento>().OrderBy(e => e.Nome)
-                .Skip((param.PageNumber - 1) * param.PageSize)
-                .Take(param.PageSize);
-```
+  ```c#
+  var result = _context.Set<Evento>().OrderBy(e => e.Nome)
+                  .Skip((param.PageNumber - 1) * param.PageSize)
+                  .Take(param.PageSize);
+  ```
 
 ### Anotações de entidades
 
