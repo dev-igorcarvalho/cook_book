@@ -5,6 +5,7 @@ using dot_net_api.Dtos;
 using dot_net_api.Models;
 using dot_net_api.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using dot_net_api.Pagination;
 using Microsoft.Extensions.Logging;
 
 namespace dot_net_api.Controllers
@@ -25,6 +26,15 @@ namespace dot_net_api.Controllers
         public IActionResult get()
         {
             var eventos = _repository.Get().ToList();
+            var result = _mapper.Map<List<EventoDto>>(eventos);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("paginated")]
+        public IActionResult get([FromQuery] PaginationParam param)
+        {
+            var eventos = _repository.Get(param).ToList();
             var result = _mapper.Map<List<EventoDto>>(eventos);
             return Ok(result);
         }
