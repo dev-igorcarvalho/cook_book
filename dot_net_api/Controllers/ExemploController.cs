@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using dot_net_api.Pagination;
 
 namespace dot_net_api.Controllers
 {
@@ -19,6 +20,13 @@ namespace dot_net_api.Controllers
         [FromQuery(Name = "quantidade")] int idade)
         {
             return Ok(new { nome = nome, idade = idade });
+        }
+
+        [HttpGet]
+        [Route("object_param")]
+        public IActionResult getComplexObjectFromQuery([FromQuery] PaginationParam param)
+        {
+            return Ok(param);
         }
 
         [HttpGet]

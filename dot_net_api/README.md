@@ -980,6 +980,33 @@ _ex de url: http://localhost:5000/api/v1/nome_recurso/nome_sub_rota_
             return Ok(new { nome = nome, idade = idade });
         }
 
+    _Outro ponto importante a se ressaltar é a possibilidade de usar um objeto complexo como parâmetro, visando uma código mais rico e organizado_
+
+    _ex de url: http://localhost:5000/api/v1/Exemplo/object_param?pageNumber=3&pageSize=25_
+
+        [HttpGet]
+        [Route("object_param")]
+        public IActionResult getComplexObjectFromQuery([FromQuery] PaginationParam param)
+        {
+            return Ok(param);
+        }
+
+        namespace dot_net_api.Pagination
+        {
+            public class PaginationParam
+            {
+                const int MaxPageSize = 50;
+                public int PageNumber { get; set; } = 1;
+                private int _pageSize { get; set; } = 10;
+
+                public int PageSize
+                {
+                    get { return _pageSize; }
+                    set { _pageSize = value > MaxPageSize ? MaxPageSize : value; }
+                }
+            }
+        }
+
 - #### POST
 
   _Deve ser anotado com [HttpPost], e deve receber como parâmetro no método uma variável anotada com [FromBody]_
