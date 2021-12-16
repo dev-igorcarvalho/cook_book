@@ -13,7 +13,7 @@ namespace dot_net_api.Repositories
 
         public IQueryable<Evento> Get(PaginationParam param)
         {
-            //o calculo no ski corrige a relaçao entre a pagina e os registros buscados
+            //o calculo no skip corrige a relaçao entre a pagina e os registros buscados
             return _context.Set<Evento>().OrderBy(e => e.Nome)
                 .Skip((param.PageNumber - 1) * param.PageSize)
                 .Take(param.PageSize);
