@@ -18,6 +18,11 @@
   * [Relacionamento de entidades 1-N](#relacionamento-de-entidades-1-N)
   * [Relacionamento de entidades N-N](#relacionamento-de-entidades-N-N)
 - [Carregando entidades relacionas com EF CORE](#carregando-entidades-relacionas-com-ef-core)
+  - [Relação 1-1](#relação-1-1)
+  - [Relação 1-N](#relação-1-n)
+  - [Relação N-N](#relação-n-n)
+  - [Joins Personalizados](#joins-personalizados)
+  - [Paginação](#paginação)
 - [Anotações de entidades](#anotações-de-entidades)
 - [Editar padroes especificos das migrantions no bdContex modelBuilder](#editar-padroes-especificos-das-migrantions-no-bdContex-modelBuilder)
 - [Criação das migrations](#criação-das-migrations)
@@ -469,6 +474,40 @@ _No caso de joins personalizados utilizamos o método join(), e especificamos os
                 p => p.CategoriaId,
                 (categoria, produto) =>
                     new { Categoria = categoria.Nome, Produto = produto.Nome })
+
+#### Paginação
+
+- Criação de uma classe modelo para paginação
+
+  ```c#
+    namespace dot_net_api.Pagination
+  {
+      public class PaginationParam
+      {
+          const int MaxPageSize = 50;
+          public int PageNumber { get; set; } = 1;
+          private int _pageSize { get; set; } = 10;
+
+          public int PageSize
+          {
+              get { return _pageSize; }
+              set { _pageSize = value > MaxPageSize ? MaxPageSize : value; }
+          }
+      }
+  }
+  ```
+
+- Filtrando a busca no banco pelos parâmetros da paginação
+
+_Obs: Como o método skip() pula X registros na busca, precisamos ajustar o número de registros ignorados em relação a página escolhida_
+
+_Obs2: O método take() limita a quantidade de registros buscados ao int passado como parâmetro_
+
+```c#
+var result = _context.Set<Evento>().OrderBy(e => e.Nome)
+                .Skip((param.PageNumber - 1) * param.PageSize)
+                .Take(param.PageSize);
+```
 
 ### Anotações de entidades
 
